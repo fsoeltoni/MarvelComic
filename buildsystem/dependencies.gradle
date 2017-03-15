@@ -1,0 +1,36 @@
+allprojects {
+    repositories {
+        jcenter()
+    }
+}
+
+ext {
+    //Android
+    androidCompileSdkVersion = 25
+    androidTargetSdkVersion = 25
+    androidBuildToolsVersion = "25.0.2"
+    androidMinSdkVersion = 15
+
+    //Libraries
+    arrowVersion = '1.0.0'
+    javaxAnnotationVersion = '1.0'
+    javaxInjectVersion = '1'
+    rxJavaVersion = '2.0.2'
+    rxAndroidVersion = '2.0.1'
+
+    //Testing
+    junitVersion    =   '4.12'
+    mockitoVersion  =   '1.9.5'
+
+    domainDependencies = [
+            javaxAnnotation:    "javax.annotation:jsr250-api:${javaxAnnotationVersion}",
+            javaxInject:        "javax.inject:javax.inject:${javaxInjectVersion}",
+            rxJava:             "io.reactivex.rxjava2:rxjava:${rxJavaVersion}",
+            arrow:              "com.fernandocejas:arrow:${arrowVersion}"
+    ]
+
+    domainTestDependencies = [
+            junit:  "junit:junit:${junitVersion}",
+            mockito:   "org.mockito:mockito-core:${mockitoVersion}"
+    ]
+}
