@@ -17,11 +17,15 @@ import io.reactivex.Observable;
 
 
 public class GetComicsInteractor extends BaseInteractor<List<Comic>, Void> {
+
     private ComicsRepository comicsRepository;
 
 
     @Inject
-    public GetComicsInteractor(ComicsRepository repository, BackgroundThread backgroundThread, MainThread mainThread) {
+    public GetComicsInteractor(ComicsRepository repository,
+                               BackgroundThread backgroundThread,
+                               MainThread mainThread) {
+
         super(backgroundThread, mainThread);
         this.comicsRepository = repository;
     }

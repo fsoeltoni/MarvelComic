@@ -21,7 +21,9 @@ public class GetComicsDetailsInteractor extends
 
     @Inject
     public GetComicsDetailsInteractor(ComicsRepository comicsRepository,
-                                      BackgroundThread backgroundThread, MainThread mainThread) {
+                                      BackgroundThread backgroundThread,
+                                      MainThread mainThread) {
+
         super(backgroundThread, mainThread);
         this.comicsRepository = comicsRepository;
     }

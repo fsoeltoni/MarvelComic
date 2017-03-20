@@ -26,6 +26,12 @@ public abstract class BaseInteractor<T, Params> {
         this.disposables = new CompositeDisposable();
     }
 
+    /**
+     * returns the observable implementation for this use case
+     *
+     * @param params
+     * @return
+     */
     abstract Observable<T> buildUseCaseObservable(Params params);
 
     /**
