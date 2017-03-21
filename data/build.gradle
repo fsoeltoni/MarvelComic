@@ -1,18 +1,39 @@
 apply plugin: 'com.android.library'
+apply plugin: 'me.tatarka.retrolambda'
+apply plugin: 'com.neenbedankt.android-apt'
+apply plugin: 'org.greenrobot.greendao'
+
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath 'me.tatarka:gradle-retrolambda:3.2.3'
+    }
+}
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion "25.0.2"
+    def globalConfigurations = rootProject.extensions.getByName("ext")
+
+    compileSdkVersion globalConfigurations.getAt("androidCompileSdkVersion")
+    buildToolsVersion globalConfigurations.getAt("androidBuildToolsVersion")
 
     defaultConfig {
-        minSdkVersion 15
-        targetSdkVersion 25
+        minSdkVersion globalConfigurations.getAt("androidMinSdkVersion")
+        targetSdkVersion globalConfigurations.getAt("androidTargetSdkVersion")
         versionCode 1
         versionName "1.0"
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
     }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
     buildTypes {
         release {
             minifyEnabled false
@@ -22,10 +43,18 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    })
-    compile 'com.android.support:appcompat-v7:25.2.0'
-    testCompile 'junit:junit:4.12'
+    def dataDependencies = rootProject.ext.dataDependencies
+    def testDependencies = rootProject.ext.dataTestDependencies
+
+    provided dataDependencies.javaxAnnotation
+    compile dataDependencies.javaxInject
+    compile dataDependencies.okHttp
+    compile dataDependencies.gson
+    compile dataDependencies.rxJava
+    compile dataDependencies.rxAndroid
+    compile dataDependencies.androidAnnotations
+
+    testCompile testDependencies.junit
+    testCompile testDependencies.mockito
+    testCompile testDependencies.robolectric
 }
